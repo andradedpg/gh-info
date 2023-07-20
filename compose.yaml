@@ -5,24 +5,26 @@ services:
     build:
       context: .
       dockerfile: ${DOCKER_FOLDER}/application/Dockerfile
+      args:
+        - APP_CLI_NAME=${APP_CLI_NAME}
     depends_on:
     - database
     env_file:
-      - .env
+      - .env 
 
   database:
-    image: postgres:15.3
+    image: postgres:14.3
     volumes:
-      - ${DOCKER_FOLDER}/database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - pgdata:/var/lib/postgresql/data
+      - ${DOCKER_FOLDER}/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ${DOCKER_FOLDER}/database/tables.sql:/docker-entrypoint-initdb.d/tables.sql # Will be created from migrations
+      
     environment:
       POSTGRES_DB: ${POSTGRES_DB} 
       POSTGRES_USER: ${POSTGRES_USER} 
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - ${POSTGRES_PORT}:5432
-    env_file:
-      - .env
 
 networks:
   ghinfo:

@@ -1,15 +1,13 @@
-const { Command } = require("commander");
+
+import * as dotenv from "dotenv";
+dotenv.config();
+
+import { LABEL_STARTER } from "./shared/constants";
 const figlet = require("figlet");
+console.log(figlet.textSync(LABEL_STARTER));
 
-const program = new Command();
+import cli from './cli';
+import { getOrCreateUser } from "./functions/users";
+const options = cli.opts();
 
-console.log(figlet.textSync("GH INFO"));
-
-program
-  .version("0.0.1")
-  .description("CLI for fetching GitHub user info")
-  .option("-l, --ls", "List users from database")
-  .option("-u, --username <value>", "Fetch user info by username")
-  .parse(process.argv);
-
-const options = program.opts();
+if (options.username) getOrCreateUser(options.username);

@@ -4,11 +4,14 @@
     "outDir": "dist",
     "strict": true,
     "target": "es6",
+    "allowJs": true,
     "module": "commonjs",
     "sourceMap": true,
     "esModuleInterop": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "lib": ["ES6", "DOM"]
   },
+  "assets": ["*/sql/*.sql"],
   "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }
