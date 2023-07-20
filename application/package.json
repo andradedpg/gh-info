@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "npx tsc && yarn copy-files",
+    "copy-files": "cp .env ./dist/.env && rsync -a ./src/services/postgres/sql/*.sql ./dist/services/postgres/sql/ ",
+    
     "start": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run dev-test\"",
-    "dev-test": "npx tsc && yarn copy-files && node ./dist/index.js --username teeshirt",
-    "copy-files": "cp .env ./dist/.env && rsync -a src/services/postgres/sql/*.sql ./dist/services/postgres/sql/"
+    "dev-test": "npx tsc && yarn copy-files && yarn migration:sync && node ./dist/index.js --username teeshirt",
+    
+    "migrate": "node-pg-migrate",
+    "migration:sync": "eval $(grep '^DATABASE_URL' .env) && npm run migrate up"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +21,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "figlet": "^1.6.0",
+    "node-pg-migrate": "^6.2.2",
+    "pg": "^8.11.1",
     "pg-promise": "^11.5.0"
   },
   "devDependencies": {
