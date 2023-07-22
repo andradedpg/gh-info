@@ -5,7 +5,7 @@
 
 <dl>
     <dt>Pre-requesites (Running on local machine)</dt>
-    <dd> Git commad line (git)</dd>
+    <dd>🔄 Git commad line (git)</dd>
     <dd>🐳 Docker engine +20 (version) </dd>
     <dd>💻 Bash compatible terminal</dd>
 </dl>
