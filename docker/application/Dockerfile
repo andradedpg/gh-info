@@ -17,6 +17,11 @@ RUN yarn install
 RUN apt-get update -y && apt-get install supervisor -y
 COPY ./docker/application/supervisor.conf /supervisor/supervisor.conf 
 
+COPY ./application/migrations/ ./migrations
+COPY ./docker/application/init.sh /init.sh 
+RUN sed -i -e 's/\r$//' /init.sh
+RUN chmod +x /init.sh 
+
 RUN echo 'alias ${APP_CLI_NAME}="node /usr/src/app/dist/index.js"' >> ~/.bashrc
 
-CMD [ "supervisord", "-c",  "/supervisor/supervisor.conf" ]
+ENTRYPOINT [ "/init.sh" ]
