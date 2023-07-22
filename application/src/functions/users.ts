@@ -6,9 +6,10 @@ import { presentter } from "../shared/interfaces";
 
 async function listLocalUsers(): Promise <void> {
   const list = await pgListUsers();
-  if (list[0].message === 'Not Found')
+  
+  if (list[0].message == 'Not Found')
   {
-    console.log(`No users found 👎. Sorry.`);
+    console.log(`No users found 👎. Try use --username for ingest the first!`);
     return;
   }
 

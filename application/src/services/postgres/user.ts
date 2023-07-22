@@ -4,7 +4,7 @@ import { IUser, User } from '../../shared/interfaces';
 export async function pgListUsers(): Promise <IUser[]> {
   try {
     const data = await db.query(sqlQueries.getUsers);
-    return data.length > 0 ? data : {message: 'Not Found'};
+    return data.length > 0 ? data : [{message: 'Not Found'}];
 
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -19,7 +19,7 @@ export async function pgGetUser(
       sqlQueries.getUserByLogin, 
       sanitizeInput([request.name])
     );
-    
+
     return data.length > 0 ? data[0] : {message: 'Not Found'}; 
       
   } catch (error) {
