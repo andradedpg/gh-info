@@ -35,7 +35,7 @@ export const sqlQueries = {
 export function sanitizeInput(inputs:(string)[]):string[] {
   return inputs.map((input) => {
     return input
-      .replace(/[^.a-zA-Z0-9:_/]/gi, '')
+      .replace(/[^.\s,a-zA-Z0-9:_/]/gi, '')
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
   });
