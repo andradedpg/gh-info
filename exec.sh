@@ -7,9 +7,17 @@ if [[ ! " ${ACTIONS[@]} " =~ " ${ACTION} " ]]; then
     exit 1
 fi
 
+if [ ! -f .env ]; then
+    echo "Please create a .env file"
+    exit 1
+fi
+
 BASE_COMMAND="docker compose -f compose.yaml"
 
 if [ ${ACTION} == "build" ]; then
+    if [ ! -f ./application/.env ]; then
+        cp .env ./application/.env
+    fi
     $BASE_COMMAND up -d --build
 elif [ ${ACTION} == "down" ]; then
     $BASE_COMMAND down
