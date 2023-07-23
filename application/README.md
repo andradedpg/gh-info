@@ -35,7 +35,9 @@ $ yarn build
 $ node ./dist/index.js -h 
 ```
 
-> Fecth user by username (If the user not exists locally on database, GH Api will be requested)
+> Fecth user by username 
+>> If the user not exists locally on database, GH Api will be requested
+>> for user and repositories
 ```
 $ node ./dist/index.js --username example 
 ```
