@@ -20,7 +20,7 @@ elif [ ${ACTION} == "restart" ]; then
         exit 1
     fi
     $BASE_COMMAND down --volumes
-    # $BASE_COMMAND up -d --build
+    $BASE_COMMAND up -d --build
 elif [ ${ACTION} == "logs" ]; then
     $BASE_COMMAND logs -f
 elif [ ${ACTION} == "init" ]; then

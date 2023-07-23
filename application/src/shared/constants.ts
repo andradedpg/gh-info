@@ -9,5 +9,5 @@ export const GH_API_TOKEN = process.env.APP_GH_API_TOKEN || "gh-token";
 export const POSTGRES_DB = process.env.POSTGRES_DB || "POSTGRES_DB";
 export const POSTGRES_PORT = Number(process.env.POSTGRES_PORT || 5432);
 export const POSTGRES_USER = process.env.POSTGRES_USER || "POSTGRES_USER";
-export const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || "POSTGRES_PASSWORD";
+export const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || "EX_PASSWORD";
 
