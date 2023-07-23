@@ -7,7 +7,7 @@
     "build": "npx tsc && yarn copy-files",
     "copy-files": "cp .env ./dist/.env && rsync -a ./src/services/postgres/sql/*.sql ./dist/services/postgres/sql/ ",
     "start": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run dev-test\"",
-    "dev-test": "npx tsc && yarn copy-files && node ./dist/index.js user --ls",
+    "dev-test": "npx tsc && yarn copy-files && yarn migration:sync &&node ./dist/index.js user -u teeshirt",
     "migrate": "node-pg-migrate",
     "migration:sync": "yarn migrate up", 
     "lint": "eslint --fix . --ext .ts"

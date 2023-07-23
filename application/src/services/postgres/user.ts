@@ -30,17 +30,19 @@ export async function pgGetUser(
 
 export async function pgInsertUser(
   request: User,
-): Promise <void> {    
+): Promise <User> {    
   const columns = sanitizeInput(Object.keys(request));
   const values  = Object.values(request).map((value) => {
     return typeof value === 'string' ? sanitizeInput([value])[0] : value;
   });
 
   try {
-    await db.none(sqlQueries.insertUser, {
+    const data = await db.one(sqlQueries.insertUser, {
       columns,
       values,
     });
+
+    return data;
   } catch (error) {
     console.error('Error fetching users:', error);
     throw error;

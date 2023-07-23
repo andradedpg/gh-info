@@ -28,7 +28,8 @@ function sql(file: string): QueryFile {
 export const sqlQueries = {
   getUsers: sql('select_users.sql'),
   getUserByLogin: sql('select_user_by_login.sql'),
-  insertUser: sql('insert_user.sql')
+  insertUser: sql('insert_user.sql'), 
+  insertRepository: sql('insert_repository.sql'), 
 };
 
 // Prevent SQL injection, XSS and other attacks

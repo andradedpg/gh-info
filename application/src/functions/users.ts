@@ -1,8 +1,9 @@
-import { ghGetUser } from "../services/github/github";
+import { ghGetUser, ghReposByUser } from "../services/github/github";
+import { pgInsertRepositories } from "../services/postgres/repository";
 import { pgGetUser, 
   pgInsertUser, 
   pgListUsers } from "../services/postgres/user";
-import { presentter } from "../shared/interfaces";
+import { usersPresentter } from "../shared/utils";
 
 async function listLocalUsers(): Promise <void> {
   const list = await pgListUsers();
@@ -15,7 +16,7 @@ async function listLocalUsers(): Promise <void> {
 
   console.log(`Users found on local ✅`);
   console.table(
-    presentter(list), 
+    usersPresentter(list), 
     ["login", "location", "public_repos", "created_at"]
   );
 }
@@ -30,23 +31,38 @@ async function getOrCreateUser(
     console.log(
       `User * ${username} * not found in local 👎. Fetching from GH API ...`
     );
+    
     const ghUser = await ghGetUser({ name: username });
-      
     if (ghUser.message === 'Not Found') 
     {
       console.error(`User * ${username} * not found in GH API👎. Sorry :'(`);
       return;
     }
 
-    await pgInsertUser(ghUser);
+    const user = await pgInsertUser(ghUser);
     console.log(
       `User * ${username} * imported from GH API to local database ✅`
     );
+
+    const ghRepos = await ghReposByUser({ name: username }); 
+    if (ghRepos[0].message === 'Not Found')
+    {
+      console.log(`User * ${username} * has no repositories 👎`);
+    }
+    else{
+      await pgInsertRepositories(ghRepos, user);
+      console.log(`
+        Repositories from user * ${username} * imported to local database ✅
+      `);
+    } 
+
     pgUser = await pgGetUser({ name: username });
   }
+  else{
+    console.log(`User * ${username} * found in local ✅`);
+  }
     
-  console.log(`User * ${username} * found in local ✅`);
-  console.table(presentter([pgUser])[0]);
+  console.table(usersPresentter([pgUser])[0]);
 }
 
 export { getOrCreateUser, listLocalUsers };  
