@@ -14,7 +14,7 @@
 ##### Step by step (build and start app)
 > 1º Clone this repository and go to the main path 
 ```
-$ git glone https://github.com/andradedpg/gh-info gh-info && cd ./gh-info 
+$ git clone https://github.com/andradedpg/gh-info gh-info && cd ./gh-info 
 ```
 > 2º Copy from .env.example to .env and change sensitive values
 ```
@@ -22,7 +22,7 @@ $ cp .env.example .env
 ```
 > 3º Give the right permisions to exec.bash file 
 ```
-$ chomd +x ./exec.sh
+$ chmod +x ./exec.sh
 ```
 > 4º To consider the follow commands:
 ```
