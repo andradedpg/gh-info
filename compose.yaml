@@ -19,7 +19,7 @@ services:
       retries: 5
       start_period: 10s  
 
-  app:
+  ghinfo_app:
     build:
       context: .
       dockerfile: ${DOCKER_FOLDER}/application/Dockerfile

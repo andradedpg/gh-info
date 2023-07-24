@@ -32,7 +32,7 @@ elif [ ${ACTION} == "restart" ]; then
 elif [ ${ACTION} == "logs" ]; then
     $BASE_COMMAND logs -f
 elif [ ${ACTION} == "init" ]; then
-    container=$(docker ps -aqf "name=app")
+    container=$(docker ps -aqf "name=ghinfo_app")
     docker exec -it $container node ./dist/index.js -h
     docker exec -it $container bash
 fi
